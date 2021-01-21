@@ -148,7 +148,7 @@
 				
 			},
 			toCategory(e){
-				//uni.showToast({title: e.name,icon:"none"});
+				// uni.showToast({title: e.name,icon:"none"});
 				uni.navigateTo({
 					url: '/pages/goods/goods-list?cid=' + e.id + '&sub=1'
 				});
