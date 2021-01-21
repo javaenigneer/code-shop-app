@@ -268,16 +268,16 @@
 	    var logister_title="运单号码："+pdata.postid+",物流公司："+logisterMap[pdata.type];
 	    console.log(logister_title);
 		var _this =this;
-		this.$post("order/getlogimsg", pdata,function(r) {
-			if (r.status == 200) {
-				var obj=JSON.parse(r.msg)
-				var list=obj.data;
-				console.log(list)
-                _this.logistics=list;
-				_this.layer=true;
-			}
+		// this.$post("order/getlogimsg", pdata,function(r) {
+		// 	if (r.status == 200) {
+		// 		var obj=JSON.parse(r.msg)
+		// 		var list=obj.data;
+		// 		console.log(list)
+  //               _this.logistics=list;
+		// 		_this.layer=true;
+		// 	}
 			
-		})
+		// })
 				
 			},
 			loadUserInfo(){
@@ -302,22 +302,22 @@
                 o.stat=5;
 				o.userId=this.userInfo.id;
 				let _this=this;
-				this.$post("order/query",o,function(res){
-					var li=res.rows;
-					for(let i in li){
-						let item= li[i];
-						item.goods=JSON.parse(item.goodsDetail);
-					//	item.sku=JSON.parse(item.skuDetail);
-					}
-					var old_li=_this.orderList;
-					var new_li=old_li.concat(li);
-					_this.orderList=new_li;
-					console.log(new_li)
-					if(li.length>0){
-						_this.cond.pagefrom=_this.cond.pagefrom+1;
-					}
+				// this.$post("order/query",o,function(res){
+				// 	var li=res.rows;
+				// 	for(let i in li){
+				// 		let item= li[i];
+				// 		item.goods=JSON.parse(item.goodsDetail);
+				// 	//	item.sku=JSON.parse(item.skuDetail);
+				// 	}
+				// 	var old_li=_this.orderList;
+				// 	var new_li=old_li.concat(li);
+				// 	_this.orderList=new_li;
+				// 	console.log(new_li)
+				// 	if(li.length>0){
+				// 		_this.cond.pagefrom=_this.cond.pagefrom+1;
+				// 	}
 					
-				})
+				// })
 				
 			},
 			
@@ -382,9 +382,9 @@
 				o.id=id;
 				o.stat=stat;
 				var _this=this;
-				this.$post("order/update",o,function(res){
-						uni.showToast({ title: '操作成功' });
-				})
+				// this.$post("order/update",o,function(res){
+				// 		uni.showToast({ title: '操作成功' });
+				// })
 			},
 			
 			pay_success(item){
@@ -411,20 +411,20 @@
 				o.id=item.id;
 				o.isValid=0;
 				var _this=this;
-				this.$post("order/update",o,function(res){
-					_this.deleteItem(item);
-						uni.showToast({ title: '操作成功' });
-				})
+				// this.$post("order/update",o,function(res){
+				// 	_this.deleteItem(item);
+				// 		uni.showToast({ title: '操作成功' });
+				// })
 			},
 			cancelOrder(item){
 				var o={};
 				o.id=item.id;
 				o.isValid=0;
 				var _this=this;
-				this.$post("order/update",o,function(res){
-					_this.deleteItem(item);
-						uni.showToast({ title: '操作成功' });
-				})
+				// this.$post("order/update",o,function(res){
+				// 	_this.deleteItem(item);
+				// 		uni.showToast({ title: '操作成功' });
+				// })
 			},
 			deleteItem(item){
 				var li=this.orderList;

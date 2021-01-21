@@ -165,11 +165,7 @@
 			if (this.$isNull(_stat)) {
 				_stat = 0;
 			}
-
 			this.tabClick(_stat);
-
-
-
 
 		},
 
