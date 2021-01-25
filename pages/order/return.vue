@@ -125,7 +125,7 @@
 			for (var i = 0; i < this.subjectList.length; i++) {		
 				this.$set(this.subjectList[i],"showAnswer",false);				
 			}
-			this.load_sale_after();
+			// this.load_sale_after();
 			
 		},
 		methods: {

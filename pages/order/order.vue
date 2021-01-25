@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="navbar">
 			<view v-for="(item, index) in navList" :key="index" class="nav-item" :class="{current: tabCurrentIndex === index}"
-			 @click="tabClick(index)">
+			 @click="tabClick(item.state)">
 				{{item.text}}
 			</view>
 		</view>
@@ -84,9 +84,6 @@
 					<!-- 空白页 -->
 					<empty v-if="orderList.length==0"></empty>
 
-
-
-
 					<uni-load-more :status="'nomore'"></uni-load-more>
 
 				</scroll-view>
@@ -144,12 +141,12 @@
 						state: 4,
 						text: '待评价',
 					},
-					/* {
-						state: 5,
+					{
+						state: 8,
 						text: '售后',
 						loadingType: 'more',
 						orderList: []
-					} */
+					}
 				],
 				userInfo: _user,
 
@@ -231,38 +228,44 @@
 			},
 
 			tuikuan(item) {
-				let _this = this;
 				uni.showModal({
 					title: '提示',
 					content: '亲，确定要发起退款嘛',
 					success: function(res) {
 						if (res.confirm) {
-							var o = {};
-							o.id = item.id;
-							o.refundStat = 1; //申请中
-							o.stat = 5;
-							_this.$post("order/update", o, function(res) {
-								uni.showToast({
-									title: '申请成功'
-								});
-								setTimeout(function() {
-									uni.navigateTo({
-										"url": "/pages/order/order-refund?state=5"
-									})
-								}, 1000)
+							uni.request({
+								url: 'http://localhost:8888/codeworld-order/refund-order?orderId=' + item.orderId,
+								header: {
+									'token': this.$dataLocal("token")
+								},
+								method: 'POST',
+								success: (response) => {
+									let result = response.data;
+									if (result.code === 20000) {
+										uni.showToast({
+											title:'申请成功'
+										});
+										setTimeout(function(){
+											uni.navigateTo({
+												"url":"/pages/order/order-refund?state=7"
+											})
+										},3000)
+									}else{
+										this.$toast({
+											title: result.msg
+										})
+									}
+								}
 							})
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}
-					}
+					}.bind(this)
 				});
 
 			},
-
 			to_return(e) {
-
 				this.$navigateTo("/pages/order/return?order_id=" + e.id);
-
 			},
 
 			getAmount(e) {
@@ -301,7 +304,7 @@
 					return "待收货"
 				} else if (4 == stat) {
 					return "待评价"
-				} else if (5 == stat) {
+				} else if (8 == stat) {
 					return "售后"
 				} else if (7 == stat) {
 					return "无效订单"
@@ -335,7 +338,7 @@
 				uni.request({
 					url: 'http://localhost:8888/codeworld-order/get-page-member-order',
 					header: {
-						'token': this.$dataLocal("token")
+						'token': this.$dataLocal('token')
 					},
 					method: 'POST',
 					data: this.cond,
