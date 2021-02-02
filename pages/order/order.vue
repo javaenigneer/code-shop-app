@@ -140,12 +140,6 @@
 					{
 						state: 4,
 						text: '待评价',
-					},
-					{
-						state: 8,
-						text: '售后',
-						loadingType: 'more',
-						orderList: []
 					}
 				],
 				userInfo: _user,

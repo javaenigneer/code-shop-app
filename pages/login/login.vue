@@ -59,7 +59,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8888/codeworld-auth/member-login',
+					url: 'http://localhost:8888/codeworld-auth/app/member-login',
 					method: 'POST',
 					data: JSON.stringify(this.loginInfo),
 					success: (response) => {
@@ -94,7 +94,7 @@
 				}
 				uni.request({
 					header:{'token':this.$dataLocal("token")},
-					url: 'http://localhost:8888/codeworld-auth/get-member-info',
+					url: 'http://localhost:8888/codeworld-auth/app/get-member-info',
 					data: {
 						token: this.$dataLocal("token")
 					},
