@@ -277,6 +277,7 @@
 					var payOrder = {};
 					payOrder.orderId = this.order_id
 					payOrder.totalPay = this.money
+					console.log(payOrder)
 					// 发起支付，未实现真正的支付功能
 					uni.request({
 						url: 'http://localhost:8888/codeworld-order/pay-order',

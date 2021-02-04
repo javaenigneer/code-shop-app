@@ -230,8 +230,12 @@
 			},
 			getuser() {
 				let _user = this.userInfo;
-				let user = this.$dataLocal("user_info") || _user;
-				this.userInfo = user
+				let user = this.$dataLocal("user_info");
+				if(this.$isNull(user)){
+					this.$navigateTo("/pages/login/login");
+				}else{
+					this.userInfo = user
+				}
 			},
 			getOrderStatusCount() {
 				uni.request({
@@ -263,18 +267,15 @@
 										break;
 								}
 							}
-						} else {
-							this.$navigateTo("/pages/login/login");
 						}
 					}
 				})
 			}
 		},
 		onLoad() {
-
+			this.getuser();
 		},
 		onShow() {
-			this.getuser();
 			this.getOrderStatusCount()
 		}
 	};

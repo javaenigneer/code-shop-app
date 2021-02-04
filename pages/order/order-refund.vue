@@ -51,6 +51,14 @@
 							<block v-if="item.orderReturnStatus==4">
 								<button class="action-btn recom">退货成功</button>
 							</block>
+							<block v-if="item.orderReturnStatus==5">
+								<button class="action-btn recom">拒绝退款</button>
+								<button class="action-btn recom">重新发起</button>
+							</block>
+							<block v-if="item.orderReturnStatus==6">
+								<button class="action-btn recom">拒绝退货</button>
+								<button class="action-btn recom">重新发起</button>
+							</block>
 						</view>
 
 
