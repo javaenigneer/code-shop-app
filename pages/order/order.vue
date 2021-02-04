@@ -228,7 +228,7 @@
 					success: function(res) {
 						if (res.confirm) {
 							uni.request({
-								url: 'http://localhost:8888/codeworld-order/refund-order?orderId=' + item.orderId,
+								url: 'http://localhost:8888/codeworld-order/app/refund-order?orderDetailId=' + item.orderDetailId,
 								header: {
 									'token': this.$dataLocal("token")
 								},
@@ -330,7 +330,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8888/codeworld-order/get-page-member-order',
+					url: 'http://localhost:8888/codeworld-order/app/get-page-member-order',
 					header: {
 						'token': this.$dataLocal('token')
 					},

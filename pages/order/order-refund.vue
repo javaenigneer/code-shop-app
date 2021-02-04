@@ -308,7 +308,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://localhost:8888/codeworld-order/get-page-member-order',
+					url: 'http://localhost:8888/codeworld-order/app/get-page-member-order',
 					header: {
 						'token': this.$dataLocal('token')
 					},
