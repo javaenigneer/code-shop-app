@@ -237,14 +237,14 @@
 									let result = response.data;
 									if (result.code === 20000) {
 										uni.showToast({
-											title:'申请成功'
+											title: '申请成功'
 										});
-										setTimeout(function(){
+										setTimeout(function() {
 											uni.navigateTo({
-												"url":"/pages/order/order-refund?state=7"
+												"url": "/pages/order/order-refund?state=7"
 											})
-										},3000)
-									}else{
+										}, 3000)
+									} else {
 										this.$toast({
 											title: result.msg
 										})
@@ -256,7 +256,43 @@
 						}
 					}.bind(this)
 				});
-
+			},
+			// 取消订单
+			cancelOrder(item) {
+				uni.showModal({
+					title: '提示',
+					content: '亲，确定要取消订单嘛',
+					success: function(res) {
+						if (res.confirm) {
+							uni.request({
+								url: 'http://localhost:8888/codeworld-order/app/cancel-order?orderId=' + item.orderId,
+								header: {
+									'token': this.$dataLocal("token")
+								},
+								method: 'POST',
+								success: (response) => {
+									let result = response.data;
+									if (result.code === 20000) {
+										uni.showToast({
+											title: result.msg
+										});
+										setTimeout(function() {
+											uni.navigateTo({
+												"url": "/pages/order/order?state=''"
+											})
+										}, 3000)
+									} else {
+										this.$toast({
+											title: result.msg
+										})
+									}
+								}
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}.bind(this)
+				});
 			},
 			to_return(e) {
 				this.$navigateTo("/pages/order/return?order_id=" + e.id);
