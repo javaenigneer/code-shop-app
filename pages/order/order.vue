@@ -61,7 +61,7 @@
 			<view class="action-box b-t" v-if="item.orderStatus == 3">
 				<button class="action-btn" @click="showLogistics(item)">查看物流</button>
 
-				<button class="action-btn" @click="comfirm(item)">确认收货</button>
+				<button class="action-btn" @click="confirmReceipt(item)">确认收货</button>
 
 			</view>
 
@@ -172,10 +172,41 @@
 
 		},
 		methods: {
-			comfirm(e) {
-				e.stat = 4;
-				this.$post("order/update", e, res => {
-					this.$toast("操作成功")
+			// 确认收货
+			confirmReceipt(item) {
+				uni.showModal({
+					title: '提示',
+					content: '亲，确定要收货吗',
+					success: function(res) {
+						if (res.confirm) {
+							uni.request({
+								url: 'http://localhost:8888/codeworld-order/app/confirm-receipt?orderDetailId=' + item.orderDetailId,
+								header: {
+									'token': this.$dataLocal("token")
+								},
+								method: 'POST',
+								success: (response) => {
+									let result = response.data;
+									if (result.code === 20000) {
+										uni.showToast({
+											title: '收货成功'
+										});
+										setTimeout(function() {
+											uni.navigateTo({
+												"url": "/pages/order/order?state=4"
+											})
+										}, 3000)
+									} else {
+										this.$toast({
+											title: result.msg
+										})
+									}
+								}
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}.bind(this)
 				});
 			},
 			topay(item) {
@@ -338,6 +369,8 @@
 					return "售后"
 				} else if (7 == stat) {
 					return "无效订单"
+				} else if (5 == stat) {
+					return "订单已关闭"
 				} else {
 					return "无状态"
 				}
@@ -382,6 +415,7 @@
 								ite.goodsInfo = ite.productModels;
 							}
 							this.orderList = this.orderList.concat(li);
+							this.cond.page++;
 						}
 					}
 				})
@@ -393,8 +427,6 @@
 				// 		ite.goodsInfo=JSON.parse(ite.goodsDetail);
 				// 		//ite.sku=JSON.parse(ite.goodsDetail).sku;
 				// 	}
-
-
 				// 	this.orderList=this.orderList.concat(li);
 				// 	this.cond.pagefrom++;
 				// })
