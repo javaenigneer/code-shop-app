@@ -234,7 +234,7 @@
 			},
 
 			to_comment(e) {
-				this.$navigateTo("/pages/order/comment?id=" + e.id);
+				this.$navigateTo("/pages/order/comment?id=" + e.orderDetailId);
 			},
 
 			showLogistics(item) {

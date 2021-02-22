@@ -1,12 +1,12 @@
 <template>
-    <view class="page">
-        <view class='feedback-title'>
-            <text>问题和意见</text>
-            <text class="feedback-quick" @tap="chooseMsg">快速键入</text>
-        </view>
-        <view class="feedback-body">
-            <textarea placeholder="请详细描述你的问题和意见..." v-model="sendDate.content" class="feedback-textare" />
-            </view>
+	<view class="page">
+		<view class='feedback-title'>
+			<text>问题和意见</text>
+			<text class="feedback-quick" @tap="chooseMsg">快速键入</text>
+		</view>
+		<view class="feedback-body">
+			<textarea placeholder="请详细描述你的问题和意见..." v-model="sendDate.evaluationContent" class="feedback-textare" />
+			</view>
         <view class='feedback-title'>
             <text>图片(选填,提供问题截图,总大小10M以下)</text>
         </view>
@@ -39,9 +39,14 @@
         </view> -->
         <view class='feedback-title feedback-star-view'>
             <text>评分</text>
-            <view class="feedback-star-view">
+			 <view class="htz-item">
+			            <view>
+			                <htz-rate v-model="sendDate.evaluationRate"></htz-rate>
+			            </view>
+			        </view>
+            <!-- <view class="feedback-star-view">
                 <text class="feedback-star" v-for="(value,key) in stars" :key="key" :class="key < sendDate.score ? 'active' : ''" @tap="chooseStar(value)"></text>
-            </view>
+            </view> -->
         </view>
         <button type="primary" class="feedback-submit" @tap="send">提交</button>
         <view class='feedback-title'>
@@ -51,6 +56,8 @@
 </template>
 
 <script>
+	import htzRate from '@/components/htz-rate/htz-rate.vue'
+	
     export default {
         data() {
             return {
@@ -58,32 +65,35 @@
                 stars: [1, 2, 3, 4, 5],
                 imageList: [],
 				
-				//upload_img_list:[],
+				// upload_img_list:[],
 				order_id:"",
 				
                 sendDate: {
-                    score: 0,
-                    content: "",
-                    contact: ""
-                }
+                    evaluationRate: 0,
+                    evaluationContent: "",
+					evaluationImages:[],
+					orderDetailId:''
+                },
+				ceshi1:0
             }
         },
+		components:{
+			htzRate
+		},
         onLoad(e) {
 			this.order_id=e.id;
-			
-			
 			return;
-            let deviceInfo = {
-                appid: plus.runtime.appid,
-                imei: plus.device.imei, //设备标识
-                p: plus.os.name === "Android" ? "a" : "i", //平台类型，i表示iOS平台，a表示Android平台。
-                md: plus.device.model, //设备型号
-                app_version: plus.runtime.version,
-                plus_version: plus.runtime.innerVersion, //基座版本号
-                os: plus.os.version,
-                net: "" + plus.networkinfo.getCurrentType()
-            }
-            this.sendDate = Object.assign(deviceInfo, this.sendDate);
+            // let deviceInfo = {
+            //     appid: plus.runtime.appid,
+            //     imei: plus.device.imei, //设备标识
+            //     p: plus.os.name === "Android" ? "a" : "i", //平台类型，i表示iOS平台，a表示Android平台。
+            //     md: plus.device.model, //设备型号
+            //     app_version: plus.runtime.version,
+            //     plus_version: plus.runtime.innerVersion, //基座版本号
+            //     os: plus.os.version,
+            //     net: "" + plus.networkinfo.getCurrentType()
+            // }
+            // this.sendDate = Object.assign(deviceInfo, this.sendDate);
         },
         methods: {
             close(e){
@@ -110,43 +120,39 @@
             }, */
 			upload_imgs(img_list){
 				this.$chooseImageUpload(9,res=>{
-					//this.upload_img_list=res;
-					this.imageList=res;
-				})
-				
-				
-				/* let LIST=img_list;
-				let  images = [];
-				for(var i = 0,len = LIST.length; i < len; i++){
-					var image_obj = {name:'image-'+i,uri:LIST[i]};
-					images.push(image_obj);
-				}
-				console.log(images);
-				for(let i in images){
-					let file=images[i].uri;
-					uni.uploadFile({
-						url: restgo.uploadUrl, //仅为示例，非真实的接口地址
-						filePath: file,
-						name: 'file',
-						formData: {
-							'user': 'test'
-						},
-						success: (uploadFileRes) => {
-							var obj=JSON.parse(uploadFileRes.data);
-							var img=obj.data[0].url
-							this.upload_img_list.push(img)
+					// this.upload_img_list=res;
+					// this.imageList.push(res[0])
+					this.imageList = res
+				})	
+				// let LIST=img_list;
+				// let  images = [];
+				// for(var i = 0,len = LIST.length; i < len; i++){
+				// 	var image_obj = {name:'image-'+i,uri:LIST[i]};
+				// 	images.push(image_obj);
+				// }
+				// console.log(images);
+				// for(let i in images){
+				// 	let file=images[i].uri;
+				// 	uni.uploadFile({
+				// 		url:'http://localhost:8888/codeworld-upload/upload-image', //仅为示例，非真实的接口地址
+				// 		filePath: file,
+				// 		name: 'file',
+				// 		success: (uploadFileRes) => {
+				// 			var obj=JSON.parse(uploadFileRes.data);
+				// 			var img=obj.data[0].url
+				// 			this.upload_img_list.push(img)
 							
-						},
-						fail: (e) => {
-							console.log("e: " + JSON.stringify(e));
+				// 		},
+				// 		fail: (e) => {
+				// 			console.log("e: " + JSON.stringify(e));
 							
-							uni.showToast({
-								icon:'none',
-								title:"发布失败,请检查网络"
-							})
-						}
-					 });
-				} */
+				// 			uni.showToast({
+				// 				icon:'none',
+				// 				title:"发布失败,请检查网络"
+				// 			})
+				// 		}
+				// 	 });
+				// }
 				
 			},
 			
@@ -159,11 +165,33 @@
                 });
             },
             send() { //发送反馈
-                console.log(JSON.stringify(this.sendDate));
-				if (!this.sendDate.content) {
+			this.sendDate.evaluationImages = this.imageList
+			this.sendDate.orderDetailId = this.order_id
+				if (!this.sendDate.evaluationContent) {
 					uni.showModal({ content: '评论内容不能为空', showCancel: false, });
 					return;
 				}
+				uni.request({
+					url:'http://localhost:8888/codeworld-order/app/order-product-evaluation',
+					header:{
+						'token': this.$dataLocal("token")
+					},
+					method:'POST',
+					data:JSON.stringify(this.sendDate),
+					success: (response) => {
+						let result = response.data
+						if(result.code === 20000){
+							this.$toast(result.msg);
+							setTimeout(function() {
+								uni.navigateTo({
+									"url":'/pages/order/order?stat=4'
+								})
+							}, 3000)
+						}else{
+							this.$toast(result.msg);
+						}
+					}
+				})
               /*  let imgs = this.imageList.map((value, index) => {
                     return {
                         name: "image" + index,
@@ -173,30 +201,25 @@
 				console.log(imgs); */
 				//this.upload_imgs(this.imageList);
 				//console.log(this.upload_img_list);
-
-				
-				this.$toast("评论成功");
-				setTimeout(()=>{
-					var o={};
-					o.context=this.sendDate.content;
-					o.score=this.sendDate.score;
-					o.img_list=this.imageList;
-					var order={};
-					order.id=this.order_id;
-					order.commentDetail=JSON.stringify(o);
-					var _this=this;
-					this.$post("order/update",order,function(){
+				// this.$toast("评论成功");
+				// setTimeout(()=>{
+				// 	var o={};
+				// 	o.context=this.sendDate.content;
+				// 	o.score=this.sendDate.score;
+				// 	o.img_list=this.imageList;
+				// 	var order={};
+				// 	order.id=this.order_id;
+				// 	order.commentDetail=JSON.stringify(o);
+				// 	var _this=this;
+				// 	this.$post("order/update",order,function(){
 						
-						uni.redirectTo({
-							"url":'/pages/order/order?stat=4'
-						})
+				// 		uni.redirectTo({
+				// 			"url":'/pages/order/order?stat=4'
+				// 		})
 						
-					})
-					
-					uni.hideLoading();
-				},2000)
-				
-
+				// 	})
+				// 	uni.hideLoading();
+				// },2000)
             }
         }
     }
