@@ -195,15 +195,9 @@
 					{
 						name: '待评价',
 						icon: 'iconfont icon31daipingjia',
-						status: 6,
+						status: 9,
 						count: 0
 					},
-					{
-						name: '已完成',
-						icon: 'iconfont icon31yiguanzhudianpu',
-						status: 4,
-						count: 0
-					}
 				],
 				currentIndex: 0,
 			};
@@ -262,7 +256,7 @@
 									case 4:
 										orderStatus.count = data.completedCount;
 										break;
-									case 6:
+									case 9:
 										orderStatus.count = data.comment;
 										break;
 								}

@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="navbar">
-			<view v-for="(item, index) in navList" :key="index" class="nav-item" :class="{current: tabCurrentIndex === index}"
+			<view v-for="(item, index) in navList" :key="index" class="nav-item" :class="{current: tabCurrentIndex === item.state}"
 			 @click="tabClick(item.state)">
 				{{item.text}}
 			</view>
@@ -65,7 +65,7 @@
 
 			</view>
 
-			<view class="action-box b-t" v-if="item.orderStatus == 4">
+			<view class="action-box b-t" v-if="item.orderStatus == 9">
 				<button class="action-btn" @click="to_comment(item)">评价</button>
 				<button class="action-btn" @click="to_return(item)">申请售后</button>
 
@@ -135,10 +135,9 @@
 					{
 						state: 3,
 						text: '待收货',
-
 					},
 					{
-						state: 4,
+						state: 9,
 						text: '待评价',
 					}
 				],
@@ -193,7 +192,7 @@
 										});
 										setTimeout(function() {
 											uni.navigateTo({
-												"url": "/pages/order/order?state=4"
+												"url": "/pages/order/order?state=9"
 											})
 										}, 3000)
 									} else {
@@ -364,6 +363,8 @@
 				} else if (3 == stat) {
 					return "待收货"
 				} else if (4 == stat) {
+					return "已完成"
+				} else if (9 == stat) {
 					return "待评价"
 				} else if (8 == stat) {
 					return "售后"
@@ -434,7 +435,6 @@
 
 
 			tabClick(e) {
-				//console.log(e);
 				this.tabCurrentIndex = e;
 				this.set_stat();
 				this.reload_list();
