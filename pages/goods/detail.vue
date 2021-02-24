@@ -542,7 +542,7 @@ import ownShare from '@/components/own-share/own-share.vue'
 			},
 
 			share() {
-				if(this.$isNull(this.userInfo.id)){
+				if(this.$isNull(this.userInfo.memberId)){
 					this.$navigateTo("/pages/login/login")
 					this.$toast("请先登陆");
 					return;

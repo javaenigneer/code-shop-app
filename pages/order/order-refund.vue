@@ -9,7 +9,7 @@
 					<!-- 订单列表 -->
 					<view v-for="(item,index) in orderList" :key="index" class="order-item">
 						<view class="i-top b-b">
-							<text class="time">{{item.createTime}}</text>
+							<text class="time">{{item.orderReturnApplyTime}}</text>
 							<!-- <text class="state" :style="{color: item.stateTipColor}">{{item.stateTip}}</text> -->
 							<text v-if="9===9" class="del-btn yticon icon-iconfontshanchu1" @click="deleteOrder(item)"></text>
 						</view>

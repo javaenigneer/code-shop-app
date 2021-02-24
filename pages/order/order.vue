@@ -68,9 +68,11 @@
 			<view class="action-box b-t" v-if="item.orderStatus == 9">
 				<button class="action-btn" @click="to_comment(item)">评价</button>
 				<button class="action-btn" @click="to_return(item)">申请售后</button>
-
 			</view>
-
+			
+			<view class="action-box b-t" v-if="item.orderStatus == 4">
+				<button class="action-btn" @click="to_return(item)">申请售后</button>
+			</view>
 		</view>
 
 
@@ -325,7 +327,7 @@
 				});
 			},
 			to_return(e) {
-				this.$navigateTo("/pages/order/return?order_id=" + e.id);
+				this.$navigateTo("/pages/order/return?orderDetailId=" + e.orderDetailId);
 			},
 
 			getAmount(e) {
