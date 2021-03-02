@@ -11,10 +11,7 @@
 
 			</swiper>
 
-
 		</view>
-
-
 
 		<view style="margin-top: 1rem;" class="center98 flex wrap">
 			<view class="w20p flex-col m-center c-center" style="height: 5rem;" @click="tocatelist(item)" v-for="(item,index) in categoryList"
@@ -24,8 +21,9 @@
 			</view>
 		</view>
 
+		
 		<view class="center92 flex" style="margin-top: 0.6rem;height: 9.6rem;">
-			<view class="h100p w44p flex m-center c-center" @click="toaclist(activity2)">
+			<view class="h100p w50p flex m-center c-center" @click="toaclist(activity2)">
 				<view class="w97p h97p brrr2dr">
 					<image :src="activity2.image" class="w100p h100p" />
 				</view>
@@ -56,7 +54,7 @@
 		  <image class="w100p h100p brrr3dr" :src="activity4.image" />
 	  </view> -->
 		<view class="center92 flex brrr3dr" style="height: 7rem; margin-top: 0.6rem; " @click="navToBannerPage(adList[0])">
-			<image class="w100p h100p brrr3dr" :src="adList[0].pic" />
+			<image class="w100p h100p brrr3dr" :src="activity1.image" />
 		</view>
 
 
@@ -145,9 +143,15 @@
 				//adList2:[{"pic":""}],
 
 
-				activity1: {},
-				activity2: {},
-				activity3: {},
+				activity1: {
+					image: 'https://codeworld-cloud-shop-1300450814.cos.ap-chengdu.myqcloud.com/2021/02/06/77881612598154251.jpg'
+				},
+				activity2: {
+					image: 'https://codeworld-cloud-shop-1300450814.cos.ap-chengdu.myqcloud.com/2021/02/06/77881612598154251.jpg'
+				},
+				activity3: {
+					image: 'https://codeworld-cloud-shop-1300450814.cos.ap-chengdu.myqcloud.com/2021/02/06/77881612598154251.jpg'
+				},
 
 
 				cond: {
@@ -234,19 +238,21 @@
 
 			// },
 
-			toaclist(e){
-				if(this.$notNull(e.goodsNum)&&e.goodsNum>1){								
-					let uri="/pages/goods/goods-list?acid="+e.id+"&name="+e.name;
+			toaclist(e) {
+				if (this.$notNull(e.goodsNum) && e.goodsNum > 1) {
+					let uri = "/pages/goods/goods-list?acid=" + e.id + "&name=" + e.name;
 					this.$navigateTo(uri);
 
-				}else{
-					this.$post("goods/query",{"activityId":e.id},res=>{
-				let li=res.rows;
-				if(!!li&&li.length>0){
-					this.todetail(li[0]);
-				}else{
-					this.$toast("还没有商品参与该活动")
-				}
+				} else {
+					this.$post("goods/query", {
+						"activityId": e.id
+					}, res => {
+						let li = res.rows;
+						if (!!li && li.length > 0) {
+							this.todetail(li[0]);
+						} else {
+							this.$toast("还没有商品参与该活动")
+						}
 					})
 				}
 			},
@@ -298,9 +304,9 @@
 				this.$navigateTo(url);
 			},
 
-			tocatelist(e){
-				let cur_cate=e;
-				let uri='/pages/goods/goods-list?cid=' + cur_cate.id + '&name=' + cur_cate.name;
+			tocatelist(e) {
+				let cur_cate = e;
+				let uri = '/pages/goods/goods-list?cid=' + cur_cate.id + '&name=' + cur_cate.name;
 				//console.log(uri);
 				this.$navigateTo(uri);
 
@@ -395,12 +401,12 @@
 				})
 			},
 
-			loadCateList(){
+			loadCateList() {
 				uni.request({
-					url:'http://localhost:8888/codeworld-goods/category/get-parent-category-app',
-					method:'GET',
+					url: 'http://localhost:8888/codeworld-goods/category/get-parent-category-app',
+					method: 'GET',
 					success: (response) => {
-						if(response.data.code === 20000){
+						if (response.data.code === 20000) {
 							this.categoryList = response.data.data
 						}
 					}
