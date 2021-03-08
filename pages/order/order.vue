@@ -239,8 +239,6 @@
 			},
 
 			showLogistics(item) {
-				console.log(item)
-
 				var post_detail = {};
 				if (!!item.postDetail) {
 					post_detail = JSON.parse(item.postDetail)
@@ -249,7 +247,7 @@
 					this.$toast("该订单的商品已经自提");
 					return;
 				}
-				let uri = "/pages/order/logister?order=" + post_detail.order + "&type=" + post_detail.type;
+				let uri = "/pages/order/logister?orderDetailId=" + item.orderDetailId + "&deliveryNumber=" + item.deliveryNumber;
 				this.$navigateTo(uri);
 			},
 
@@ -257,7 +255,7 @@
 				uni.showModal({
 					title: '提示',
 					content: '亲，确定要发起退款嘛',
-					success: function(res) {
+					success: function(res) {	
 						if (res.confirm) {
 							uni.request({
 								url: 'http://localhost:8888/codeworld-order/app/refund-order?orderDetailId=' + item.orderDetailId,

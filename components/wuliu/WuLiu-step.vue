@@ -10,10 +10,10 @@
 				<view class="State_Four">
 					<view class="FourBox">
 						<text class="line" :class="[i == 0?'noline':'']"></text>
-						<text class="ali_top_icon" style="margin: 0 0;" v-if="item.remark.includes(ways.expName) || i == datas.length -1">发</text>
+						<text class="ali_top_icon" style="margin: 0 0;" v-if="item.content.includes(ways.expName) || i == datas.length -1">发</text>
 						<!-- =====如果不够，可以再方法和过滤器中同时添加判断-----或者如下的--[v-else-if]操作 -->
 						<!-- <text class="ali_top_icon" style="margin: 0 0;" v-else-if="item.remark.includes('丰巢智能快递柜') && i!= datas.length-1">待</text> -->
-						<text class="ali_top_icon" :class="[item.remark.includes('签收')?'isOk':'']" style="margin: 0 0;" v-else-if="Type(item.remark) == true && i!= datas.length-1">{{item.remark | Type}}</text>
+						<text class="ali_top_icon" :class="[item.content.includes('签收')?'isOk':'']" style="margin: 0 0;" v-else-if="Type(item.content) == true && i!= datas.length-1">{{item.content | Type}}</text>
 						<view class="ali_top_icons" style="margin: 0 0;" v-else>
 							<text class="line" :class="[i == 0?'noline':'']"></text>
 							<text class="ali_top_iconss"></text>
@@ -23,8 +23,8 @@
 					</view>
 					<view class="remark">
 						<text class="a14"  v-if="i == datas.length-1">已发货</text>
-						<text class="a14"  v-else>{{item.remark}}</text>
-						<text class="a12" style="padding-top: 10upx;">{{item.time}}</text>
+						<text class="a14"  v-else>{{item.content}}</text>
+						<text class="a12" style="padding-top: 10upx;">{{item.arriveTime}}</text>
 					</view>
 				</view>
 			</block>
