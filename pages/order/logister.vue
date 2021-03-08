@@ -22,6 +22,7 @@
 			let _conf = this.getConst();
 
 			return {
+				
 				alidata2: {
 					state: 3,
 					uptime: '2019-05-24 10:58:24',
