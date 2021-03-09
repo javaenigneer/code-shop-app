@@ -54,7 +54,14 @@
 			return {
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
-				cartList: [],
+				cartList: [
+					{
+						id:1,
+						image:'https://codeworld-cloud-shop-1300450814.cos.ap-chengdu.myqcloud.com/2021/01/04/41881609743943658.jpg',
+						name:'测试',
+						price:10
+					}
+				],
 				 userInfo:{
 					"id":-1
 				},
@@ -70,7 +77,7 @@
 			this.loadUserInfo();
 		},
 		onShow() {
-			this.getCartList();
+			// this.getCartList();
 			//this.tips1();
 		},
 		watch:{

@@ -4,13 +4,14 @@
 			<image src="../../static/img/goods/back.png" style="width: 1.5rem; height: 1.5rem;"></image>
 			
 		</view> -->
-		
+
 		<view class="carousel">
 			<swiper indicator-dots circular="true" autoplay="true" duration="400">
 				<swiper-item class="swiper-item" v-for="(item,index) in imgList" :key="index">
 					<view class="image-wrapper">
 						<image v-if="item.src.indexOf('.mp4')==-1" :src="item.src" class="loaded" mode="aspectFill"></image>
-						<video v-if="item.src.indexOf('.mp4')>-1" style="width: 18.8rem;height: 18.8rem;" autoplay="true" loop="false" muted="true" mode="widthFix" :src="item.src"></video>
+						<video v-if="item.src.indexOf('.mp4')>-1" style="width: 18.8rem;height: 18.8rem;" autoplay="true" loop="false"
+						 muted="true" mode="widthFix" :src="item.src"></video>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -19,12 +20,12 @@
 		<view class="introduce-section">
 			<text class="title">{{goodsData.name}}</text>
 			<view class="price-box">
-				 <view >
-				<span class="m-price" >￥<span v-text="goodsData.price"></span></span>
-				<span class="price" >
-					<span>￥</span>
-					<span  v-if="cur_sku.price>0" v-text="cur_sku.price"></span>
-				    <span  v-else v-text="goodsData.price"></span> 
+				<view>
+					<span class="m-price">￥<span v-text="goodsData.price"></span></span>
+					<span class="price">
+						<span>￥</span>
+						<span v-if="cur_sku.price>0" v-text="cur_sku.price"></span>
+						<span v-else v-text="goodsData.price"></span>
 					</span>
 				</view>
 				<!-- <text class="price" v-else>￥{{cur_sku.price}}</text> -->
@@ -78,16 +79,16 @@
 				<view class="right">
 					<text class="name">{{sItem.username}}</text>
 					<text class="con"> {{sItem.content}}</text>
-					<view  class="flex ">
-						<image style="width: 3.3rem; height: 3.3rem;" v-for="(ssItem,ssIndex) in sItem.imgList" :key="ssIndex" :src="ssItem" ></image>
+					<view class="flex ">
+						<image style="width: 3.3rem; height: 3.3rem;" v-for="(ssItem,ssIndex) in sItem.imgList" :key="ssIndex" :src="ssItem"></image>
 					</view>
 				</view>
 			</view>
 		</view>
-		
-		
 
-		
+
+
+
 
 		<div class="detail-desc">
 			<view class="d-header">
@@ -103,7 +104,7 @@
 				<text class="iconfont iconfenlei1"></text>
 				<text>首页</text>
 			</navigator>
-			<view @click="toFavorite"  :class="{active: favorite}" open-type="switchTab" class="p-b-btn">
+			<view @click="toFavorite" :class="{active: favorite}" open-type="switchTab" class="p-b-btn">
 				<text class="iconfont iconbiaoxingfill"></text>
 				<text>收藏</text>
 			</view>
@@ -112,12 +113,12 @@
 				<text>咨询</text>
 			</view>
 
-			<view class="action-btn-group">				
+			<view class="action-btn-group">
 				<button type="primary" class=" action-btn no-border add-cart-btn" @click="cart">购物车</button>
 				<button type="primary" class=" action-btn no-border buy-now-btn" @click="buy">立即购买</button>
 			</view>
 		</view>
-	<!-- 规格-模态层弹窗 -->
+		<!-- 规格-模态层弹窗 -->
 		<view class="popup spec" :class="specClass" @touchmove.stop.prevent="stopPrevent" @click="toggleSpec">
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
@@ -139,58 +140,59 @@
 					</view>
 				</view>
 
-				<view >
+				<view>
 					<text>颜色</text>
 					<view class="item-list">
-						<text v-for="(childItem, childIndex) in color" :key="childIndex" class="tit"
-						 :class="{selected: cur_color==childItem}" @click="selectSpec(1, childItem)">
+						<text v-for="(childItem, childIndex) in color" :key="childIndex" class="tit" :class="{selected: cur_color==childItem}"
+						 @click="selectSpec(1, childItem)">
 							{{childItem}}
 						</text>
 					</view>
 				</view>
-				
-				<view >
+
+				<view>
 					<text>规格</text>
 					<view class="item-list">
-						<text v-for="(childItem, childIndex) in size" :key="childIndex" class="tit"
-						 :class="{selected: cur_size==childItem}" @click="selectSpec(2, childItem)">
+						<text v-for="(childItem, childIndex) in size" :key="childIndex" class="tit" :class="{selected: cur_size==childItem}"
+						 @click="selectSpec(2, childItem)">
 							{{childItem}}
 						</text>
 					</view>
 				</view>
-				
+
 				<button class="btn" @click="toggleSpec">完成</button>
 			</view>
 		</view>
-		
-		<own-share ref="share" :shareSummary="shareobj.shareSummary" :shareImage="shareobj.image"
-		    :shareTitle="shareobj.title" :shareHref="shareobj.href"
-		    :miniProgram="shareobj.miniProgram" :webUrl="shareobj.webUrl"
-		    @shareSuccess="shareSuccess" @shareFail="shareFail"></own-share>
+
+		<own-share ref="share" :shareSummary="shareobj.shareSummary" :shareImage="shareobj.image" :shareTitle="shareobj.title"
+		 :shareHref="shareobj.href" :miniProgram="shareobj.miniProgram" :webUrl="shareobj.webUrl" @shareSuccess="shareSuccess"
+		 @shareFail="shareFail"></own-share>
 
 	</view>
 </template>
 
 <script>
-import ownShare from '@/components/own-share/own-share.vue'
+	import ownShare from '@/components/own-share/own-share.vue'
 
-	
+
 	export default {
 		components: {
 			ownShare
 		},
 		data() {
-			let _conf=this.getConst();
-			
+			let _conf = this.getConst();
+
 			return {
-				conf:_conf,				
+				conf: _conf,
 				specClass: 'none',
 				specSelected: [],
 
 				favorite: true,
 				shareList: [],
-				imgList: [{"src":""}],
-				descriptionNode:[],
+				imgList: [{
+					"src": ""
+				}],
+				descriptionNode: [],
 				goodsData: {
 					id: 1,
 					name: "",
@@ -198,148 +200,153 @@ import ownShare from '@/components/own-share/own-share.vue'
 					number: 1,
 				},
 				commentDetail: [],
-				
-				skuList:[],
-				color:[],
-				size:[],
-				
-				cur_color:"",
-				cur_size:'',
-				cur_sku:{},
 
-                userInfo:{
-					"id":-1
+				skuList: [],
+				color: [],
+				size: [],
+
+				cur_color: "",
+				cur_size: '',
+				cur_sku: {},
+
+				userInfo: {
+					"id": -1
 				},
-				submit_lock:0,
-				cartList:[],
-				collect_list:[],
-				
-				showCommet:false,
-				
-				hasTapBuy:false,
-				
-				
-				shareobj:{
-					shareSummary:"我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-					image:"https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
-					title:"uni-app分享",
-					href:"http://uniapp.dcloud.io/",
-					miniProgram:{},
-					webUrl:"webUrl",
+				submit_lock: 0,
+				cartList: [],
+				collect_list: [],
+
+				showCommet: false,
+
+				hasTapBuy: false,
+
+
+				shareobj: {
+					shareSummary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+					image: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+					title: "uni-app分享",
+					href: "http://uniapp.dcloud.io/",
+					miniProgram: {},
+					webUrl: "webUrl",
 				}
-				
+
 			};
 		},
 		onShow() {
-			this.hasTapBuy=false;
+			this.hasTapBuy = false;
 		},
 		onLoad(options) {
-			
-			
+
+
 			// let uri=this.conf.baseurl+'pages/goods/detail?id='+options.id;
 			// this.wxLogin(uri);
-			
+
 			this.loadUserInfo();
-			
+
 			let id = options.id;
 			this.findGoods(id);
-			
+
 			// this.getCartList();
 			// this.loadCollectList();
-			
-			
 
-		//	this.shareList =await this.$api.json('shareList');
+
+
+			//	this.shareList =await this.$api.json('shareList');
 		},
-		
+
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if (index === 0) {
 				this.openshare();
-				
+
 
 
 			} else if (index === 1) {
-				
+
 			}
 		},
 		methods: {
-			tocopy(){
-				let uri=this.getConst().host+"wxh5/#/pages/goods/detail?id="+this.goodsData.id+"&guider="+this.userInfo.id;
-				uri="http://djk.51gang.top/appmkt/tjk/androidapk.html";
-				
-				
-				let cont="复制下面的链接，发送给你朋友赚取佣金\n";
-				cont=cont+this.goodsData.name+"============\n";
-				cont=cont+uri
+			tocopy() {
+				let uri = this.getConst().host + "wxh5/#/pages/goods/detail?id=" + this.goodsData.id + "&guider=" + this.userInfo.id;
+				uri = "http://djk.51gang.top/appmkt/tjk/androidapk.html";
+
+
+				let cont = "复制下面的链接，发送给你朋友赚取佣金\n";
+				cont = cont + this.goodsData.name + "============\n";
+				cont = cont + uri
 				this.$Copy(cont);
 			},
-			
-			initshareobj(e){
-				this.shareobj.title="搭健康";
-				this.shareobj.shareSummary="点击链接下载搭健康商城";
-				this.shareobj.image=this.getConst().host+"images/icon.png";
-				
-				
-				let uri=this.getConst().host+"wxh5/#/pages/goods/detail?id="+this.goodsData.id+"&guider="+this.userInfo.id;
-				uri="http://djk.51gang.top/appmkt/tjk/androidapk.html";
 
-				
-				this.shareobj.href=uri;  
-				
+			initshareobj(e) {
+				this.shareobj.title = "搭健康";
+				this.shareobj.shareSummary = "点击链接下载搭健康商城";
+				this.shareobj.image = this.getConst().host + "images/icon.png";
+
+
+				let uri = this.getConst().host + "wxh5/#/pages/goods/detail?id=" + this.goodsData.id + "&guider=" + this.userInfo.id;
+				uri = "http://djk.51gang.top/appmkt/tjk/androidapk.html";
+
+
+				this.shareobj.href = uri;
+
 			},
-			
-			openshare(e){
+
+			openshare(e) {
 				this.tocopy();
-				
-				 this.initshareobj(e);
 
-				
-				 this.$refs.share.open()
-			},
-			
+				this.initshareobj(e);
 
-			switch_show_comment(){
-				this.showCommet=!this.showCommet;
+
+				this.$refs.share.open()
 			},
-			sale_once(id){
-				this.$post("goods/addsale",{id:id},function(res){})
+
+
+			switch_show_comment() {
+				this.showCommet = !this.showCommet;
 			},
-			look_once(id){
-				this.$post("goods/addlook",{id:id},function(res){})
+			sale_once(id) {
+				this.$post("goods/addsale", {
+					id: id
+				}, function(res) {})
 			},
-			getCartList(){
-				if(this.$isNull(this.userInfo.id)){				
+			look_once(id) {
+				this.$post("goods/addlook", {
+					id: id
+				}, function(res) {})
+			},
+			getCartList() {
+				if (this.$isNull(this.userInfo.id)) {
 					this.$toast("请先登陆");
 					return;
 				}
-				
-				let o={};
-				o.stat=1;
-				o.userId=this.userInfo.id;
-				this.$post("cart/query",o,(res)=>{
-					var li=res.rows;
-					this.cartList=li;
-					
+
+				let o = {};
+				o.stat = 1;
+				o.userId = this.userInfo.id;
+				this.$post("cart/query", o, (res) => {
+					var li = res.rows;
+					this.cartList = li;
+
 				})
 			},
-			
-			loadUserInfo(){
-				let user=this.getUser();
-				this.userInfo=user;
-				if(this.$isNull(this.userInfo)){
+
+			loadUserInfo() {
+				let user = this.getUser();
+				this.userInfo = user;
+				if (this.$isNull(this.userInfo)) {
 					this.$navigateTo("/pages/login/login")
 					this.$toast("请先登陆");
 					return;
 				}
 			},
-			
+
 			splitColorAndSize(list) {
-				var colorList = [],sizeList = [];
+				var colorList = [],
+					sizeList = [];
 				var skuList = list;
 				for (var i in skuList) {
 					var item = skuList[i];
-					
+
 					var sku_str = item.title;
 					sku_str = sku_str.slice(sku_str.indexOf(" ") + 1)
 					var li = sku_str.split(' ');
@@ -353,82 +360,82 @@ import ownShare from '@/components/own-share/own-share.vue'
 
 			},
 			specColorAndSize(list) {
-				var spec=this.splitColorAndSize(list);
-				this.skuList=list;
-				this.color=spec.color;
-				this.size=spec.size;
-				this.cur_color=this.color[0];
-				this.cur_size=this.size[0];
-				
-				
-				let goodsid=this.goodsData.id;
-				let _cur_size=null;
-							
-				if(null!=_cur_size){
-					this.cur_size=_cur_size;
+				var spec = this.splitColorAndSize(list);
+				this.skuList = list;
+				this.color = spec.color;
+				this.size = spec.size;
+				this.cur_color = this.color[0];
+				this.cur_size = this.size[0];
+
+
+				let goodsid = this.goodsData.id;
+				let _cur_size = null;
+
+				if (null != _cur_size) {
+					this.cur_size = _cur_size;
 				}
 				this.setCurSkuInitPrice();
-			
+
 			},
-			setCurSkuInitPrice(){
-				var c_color=this.cur_color;
-				var c_size=this.cur_size;
-				var _sku=c_color+" "+c_size;
-				var list=this.skuList;
-				for(var i in list){
-					var ite=list[i];
+			setCurSkuInitPrice() {
+				var c_color = this.cur_color;
+				var c_size = this.cur_size;
+				var _sku = c_color + " " + c_size;
+				var list = this.skuList;
+				for (var i in list) {
+					var ite = list[i];
 					var sku_str = ite.title;
 					sku_str = sku_str.slice(sku_str.indexOf(" ") + 1)
 					console.log(sku_str)
-					if(_sku==sku_str){
-						this.cur_sku=ite;
+					if (_sku == sku_str) {
+						this.cur_sku = ite;
 					}
 				}
 			},
-			setCurSku(){
-				var c_color=this.cur_color;
-				var c_size=this.cur_size;
-				var _sku=c_color+" "+c_size;
-				var list=this.skuList;
-				for(var i in list){
-					var ite=list[i];
+			setCurSku() {
+				var c_color = this.cur_color;
+				var c_size = this.cur_size;
+				var _sku = c_color + " " + c_size;
+				var list = this.skuList;
+				for (var i in list) {
+					var ite = list[i];
 					var sku_str = ite.title.slice(ite.title.indexOf(" ") + 1)
-					if(_sku==sku_str){
-						this.cur_sku=ite;
+					if (_sku == sku_str) {
+						this.cur_sku = ite;
 					}
-					
+
 				}
 			},
 			findGoods(productId) {
 				// 根据商品id查询商品信息
 				uni.request({
-					url:'http://localhost:8888/codeworld-search/goods/get-product-id?productId=' + productId,
-					method:'POST',
-					success:(response)=>{
-						if(response.data.code === 20000){
+					url: 'http://localhost:8888/codeworld-search/goods/get-product-id?productId=' + productId,
+					method: 'POST',
+					success: (response) => {
+						if (response.data.code === 20000) {
 							var product = response.data.data;
-								var img_list_res = [];
-								var img_list = [];
-								if(product.images != null){
-									img_list_res = product.images;
-								}
-								for(var i in img_list_res){
-									var o = {};
-									o.id = 1;
-									o.src = img_list_res[i];
-									img_list.push(o);
-								}
-								this.imgList = img_list
-								this.descriptionNode = this.$prepareHtml('商品描述')
-								product.productImage = img_list[0].src
-								this.goodsData = product
-								this.specColorAndSize(JSON.parse(product.sku));
+							var img_list_res = [];
+							var img_list = [];
+							if (product.images != null) {
+								img_list_res = product.images;
+							}
+							for (var i in img_list_res) {
+								var o = {};
+								o.id = 1;
+								o.src = img_list_res[i];
+								img_list.push(o);
+							}
+							this.imgList = img_list
+							this.descriptionNode = this.$prepareHtml('商品描述')
+							product.productImage = img_list[0].src
+							this.goodsData = product
+							this.specColorAndSize(JSON.parse(product.sku));
 						}
 					}
 				})
 				// this.$post("goods/find", o, (res)=> {
 				// 	var goods = res.data;			
-					
+
 				// 	var img_list_res = [];
 				// 	var img_list = [];
 				// 	if (!!goods.imageList) {
@@ -444,7 +451,7 @@ import ownShare from '@/components/own-share/own-share.vue'
 
 
 				// 	this.descriptionNode = this.$prepareHtml(goods.detail);
-								   
+
 				// 	goods.image=img_list[0].src
 				// 	goods.service = [{
 				// 			name: "正品保证",
@@ -459,7 +466,7 @@ import ownShare from '@/components/own-share/own-share.vue'
 				// 			description: "此商品享受7天无理由退换服务"
 				// 		}
 				// 	];
-					
+
 				// 	goods.promotion = [{
 				// 			name: "此商品官方保证为正品",
 				// 			//description: "此商品官方保证为正品"
@@ -476,11 +483,11 @@ import ownShare from '@/components/own-share/own-share.vue'
 				// 	if(!!goods.serviceDetail&&goods.serviceDetail!=''&&goods.serviceDetail!='[]'){
 				// 		goods.service=JSON.parse(goods.serviceDetail);
 				// 	}
-					
+
 				// 	if(!!goods.promotionDetail&&goods.promotionDetail!=''&&goods.promotionDetail!='[]'){
 				// 		goods.promotion=JSON.parse(goods.promotionDetail);
 				// 	}
-					
+
 				// 	this.goodsData = goods;
 				// 	this.specColorAndSize(JSON.parse(goods.skuDetail));
 				// 	this.loadOrderList(goods.id);
@@ -488,35 +495,35 @@ import ownShare from '@/components/own-share/own-share.vue'
 				// 	this.look_once(goods.id);
 				// })
 			},
-            loadOrderList(id){
-				let o={};
-				o.goodsId=id;
-				let _this=this;
-				this.$post("order/query",o,function(res){
-					var li=res.rows;
-					for(let i in li){
-						let item= li[i];
-						if(_this.getConst().sucComment!=item.commentStat){
+			loadOrderList(id) {
+				let o = {};
+				o.goodsId = id;
+				let _this = this;
+				this.$post("order/query", o, function(res) {
+					var li = res.rows;
+					for (let i in li) {
+						let item = li[i];
+						if (_this.getConst().sucComment != item.commentStat) {
 							continue;
 						}
-						
-						var comment={};
-						if(!!item.commentDetail){							
-							comment=JSON.parse(item.commentDetail);
-							var cus=JSON.parse(item.cusDetail);
-							var o={};
+
+						var comment = {};
+						if (!!item.commentDetail) {
+							comment = JSON.parse(item.commentDetail);
+							var cus = JSON.parse(item.cusDetail);
+							var o = {};
 							console.log(comment);
-							o.userface=cus.headimage||'http://img3.imgtn.bdimg.com/it/u=1150341365,1327279810&fm=26&gp=0.jpg';
-							o.username=cus.nickname||'uname';
-							o.content=comment.context;
-							o.imgList=comment.img_list;
+							o.userface = cus.headimage || 'http://img3.imgtn.bdimg.com/it/u=1150341365,1327279810&fm=26&gp=0.jpg';
+							o.username = cus.nickname || 'uname';
+							o.content = comment.context;
+							o.imgList = comment.img_list;
 							_this.commentDetail.push(o)
-							}
+						}
 					}
 
-					
+
 				})
-				
+
 			},
 
 			//规格弹窗开关
@@ -525,10 +532,10 @@ import ownShare from '@/components/own-share/own-share.vue'
 					this.specClass = 'hide';
 					setTimeout(() => {
 						this.specClass = 'none';
-						if(this.hasTapBuy==true){
+						if (this.hasTapBuy == true) {
 							this.buy();
 						}
-						
+
 					}, 250);
 				} else if (this.specClass === 'none') {
 					this.specClass = 'show';
@@ -536,79 +543,111 @@ import ownShare from '@/components/own-share/own-share.vue'
 			},
 			//选择规格
 			selectSpec(type, item) {
-				if(type==1){this.cur_color=item}
-				else if(2==type){this.cur_size=item}
+				if (type == 1) {
+					this.cur_color = item
+				} else if (2 == type) {
+					this.cur_size = item
+				}
 				this.setCurSku();
 			},
 
 			share() {
-				if(this.$isNull(this.userInfo.memberId)){
+				if (this.$isNull(this.userInfo.memberId)) {
 					this.$navigateTo("/pages/login/login")
 					this.$toast("请先登陆");
 					return;
 				}
-				
+
 				this.$navigateTo("/pages/chat/chat");
 			},
-			
-			loadCollectList(){
-				this.collect_list=this.$dataLocal("collect_list")||[];
+
+			loadCollectList() {
+				this.collect_list = this.$dataLocal("collect_list") || [];
 			},
-			IsCollectGoods(goods_id){
-				var li=this.collect_list;
-				var bool=false;
-				for(let i in li){
-					let ite=li[i];
-					if(ite.id===goods_id){
-						bool=true;
+			IsCollectGoods(goods_id) {
+				var li = this.collect_list;
+				var bool = false;
+				for (let i in li) {
+					let ite = li[i];
+					if (ite.id === goods_id) {
+						bool = true;
 					}
-					
+
 				}
-				
-				this.favorite=bool;
+
+				this.favorite = bool;
 			},
 			//收藏
 			toFavorite() {
-				 var c_li=this.collect_list;
-				if(this.favorite===false){
-					var o={};
-					 o.id=this.goodsData.id;
-					 var _this=this;
-					this.$post("goods/addcollect",o,function(res){
-						c_li.push(_this.goodsData);
-						_this.$dataLocal("collect_list",c_li)
-
-					})
-					this.favorite = !this.favorite;
-				}else{
-					c_li=this.$delArrItemByKv(c_li,"id",this.goodsData.id);
-					this.$dataLocal("collect_list",c_li)
-					this.favorite = !this.favorite;
-				}			
-			},
-			cart(){
-				if(this.$isNull(this.userInfo.memberId)){
+				if (this.$isNull(this.userInfo.memberId)) {
 					this.$navigateTo("/pages/login/login")
 					this.$toast("请先登陆");
 					return;
 				}
-				
-				var cart={};
-				cart.memberId=this.userInfo.memberId;
-							
-				var goods={};
-				goods.productId=this.goodsData.id;
-				goods.productTitle=this.goodsData.title;
-				goods.productImage=this.goodsData.image;
+				let param = {}
+				param.productId = this.goodsData.id
+				param.title = this.goodsData.title
+				let sku = this.cur_sku;
+				param.price = sku.price
+				param.skuId = sku.id
+				param.image = sku.images
+				console.log(param)
+				uni.request({
+					url: 'http://localhost:8888/codeworld-collection/app/collection-product',
+					header: {
+						'token': this.$dataLocal("token")
+					},
+					data: param,
+					method: 'POST',
+					success: (response) => {
+						let result = response.data
+						if (result.code === 20000) {
+							this.$toast(result.msg);
+						}else{
+							this.$toast(result.msg);
+						}
+					}
+				})
+				//  var c_li=this.collect_list;
+				// if(this.favorite===false){
+				// 	var o={};
+				// 	 o.id=this.goodsData.id;
+				// 	 var _this=this;
+				// 	this.$post("goods/addcollect",o,function(res){
+				// 		c_li.push(_this.goodsData);
+				// 		_this.$dataLocal("collect_list",c_li)
+
+				// 	})
+				// 	this.favorite = !this.favorite;
+				// }else{
+				// 	c_li=this.$delArrItemByKv(c_li,"id",this.goodsData.id);
+				// 	this.$dataLocal("collect_list",c_li)
+				// 	this.favorite = !this.favorite;
+				// }			
+			},
+			cart() {
+				if (this.$isNull(this.userInfo.memberId)) {
+					this.$navigateTo("/pages/login/login")
+					this.$toast("请先登陆");
+					return;
+				}
+
+				var cart = {};
+				cart.memberId = this.userInfo.memberId;
+
+				var goods = {};
+				goods.productId = this.goodsData.id;
+				goods.productTitle = this.goodsData.title;
+				goods.productImage = this.goodsData.image;
 				goods.productCount = 1;
 				goods.merchantNumber = this.goodsData.merchantNumber
 				// goods.type=this.goodsData.type;
 				// goods.postageConfig=this.goodsData.postageConfig;
-				cart.productDetail=JSON.stringify(goods);
-				
-				let sku=this.cur_sku;
+				cart.productDetail = JSON.stringify(goods);
+
+				let sku = this.cur_sku;
 				console.log(sku)
-				cart.skuDetail=JSON.stringify(sku)
+				cart.skuDetail = JSON.stringify(sku)
 				// var isRepeat=0;
 				// for(let i in this.cartList){
 				// 	let item=this.cartList[i];
@@ -618,21 +657,23 @@ import ownShare from '@/components/own-share/own-share.vue'
 				// 	this.$toast("已经加入购物车啦");
 				// 	return
 				// }
-				
+
 				// if(1==this.submit_lock){
 				// 	this.$toast("已经加入购物车啦");
 				// 	return;
 				// }
 				// this.submit_lock=1;
 				uni.request({
-					url:'http://localhost:8888/codeworld-cart/add-cart',
-					header:{'token':this.$dataLocal("token")},
-					method:'POST',
-					data:cart,
+					url: 'http://localhost:8888/codeworld-cart/add-cart',
+					header: {
+						'token': this.$dataLocal("token")
+					},
+					method: 'POST',
+					data: cart,
 					success: (response) => {
-						if(response.data.code === 20000){
+						if (response.data.code === 20000) {
 							this.$toast(response.data.msg);
-						}else{
+						} else {
 							this.$toast(response.data.msg);
 						}
 					}
@@ -644,30 +685,30 @@ import ownShare from '@/components/own-share/own-share.vue'
 				// })
 			},
 			buy() {
-				if(this.$isNull(this.userInfo.memberId)){
+				if (this.$isNull(this.userInfo.memberId)) {
 					this.$toast("请先登陆");
 					this.$navigateTo("/pages/login/login")
 					return;
 				}
 
-				
-				let param={};
+
+				let param = {};
 				let goods = this.goodsData;
-				let sku=this.cur_sku;
-				if(!sku.price>0){
+				let sku = this.cur_sku;
+				if (!sku.price > 0) {
 					this.$toast("价格异常");
 					return;
 				}
-				param.goods=goods;
-				param.sku=sku;
-				param.number=1;	
+				param.goods = goods;
+				param.sku = sku;
+				param.number = 1;
 				param.merchantNumber = goods.merchantNumber;
-				var li=[];
-				li.push(param);			
-				this.$dataLocal("buy_list",li);
-			//	this.$dataLocal("buy_type","product");
+				var li = [];
+				li.push(param);
+				this.$dataLocal("buy_list", li);
+				//	this.$dataLocal("buy_type","product");
 				this.sale_once(this.goodsData.id);
-				this.$navigateTo(`/pages/order/create`);			
+				this.$navigateTo(`/pages/order/create`);
 			},
 			stopPrevent() {}
 		},
@@ -682,114 +723,118 @@ import ownShare from '@/components/own-share/own-share.vue'
 		background: #f8f8f8;
 		padding-bottom: 160upx;
 	}
-	.promored{
-		color:red;
+
+	.promored {
+		color: red;
 	}
+
 	.icon-you {
 		font-size: 0.8rem;
 		color: #888;
 	}
+
 	.carousel {
 		height: 722upx;
 		position: relative;
-	
+
 		swiper {
 			height: 100%;
 		}
-	
+
 		.image-wrapper {
 			width: 100%;
 			height: 100%;
 		}
-	
+
 		.swiper-item {
 			display: flex;
 			justify-content: center;
 			align-content: center;
 			height: 750upx;
 			overflow: hidden;
-	
+
 			image {
 				width: 100%;
 				height: 100%;
 			}
 		}
-	
+
 	}
-	
+
 	.introduce-section {
 		background: #fff;
 		padding: 20upx 30upx;
-	
+
 		.title {
 			font-size: 32upx;
 			color: #303133;
 			height: 50upx;
 			line-height: 50upx;
 		}
-	
+
 		.price-box {
 			display: flex;
 			align-items: baseline;
 			height: 64upx;
 			padding: 10upx 0;
 			font-size: 26upx;
-			color:  #fa436a;
+			color: #fa436a;
 		}
-	
+
 		.price {
-			font-size:0.8rem;
+			font-size: 0.8rem;
 		}
-	
+
 		.m-price {
 			margin: 0 12upx;
 			color: #909399;
 			text-decoration: line-through;
 		}
-	
+
 		.coupon-tip {
 			align-items: center;
 			padding: 4upx 10upx;
-			background:  #fa436a;
+			background: #fa436a;
 			font-size: 0.8rem;
 			color: #fff;
 			border-radius: 6upx;
 			line-height: 1;
 			transform: translateY(-4upx);
 		}
-	
+
 		.bot-row {
 			display: flex;
 			align-items: center;
 			height: 50upx;
 			font-size: 0.8rem;
 			color: #909399;
-	
+
 			text {
 				flex: 1;
 			}
 		}
 	}
+
 	.share-section {
 		display: flex;
 		align-items: center;
-		color: #606266; 
+		color: #606266;
 		background: linear-gradient(left, #fdf5f6, #fbebf6);
 		padding: 12upx 30upx;
-	
+
 		.share-icon {
 			display: flex;
 			align-items: center;
 			width: 70upx;
 			height: 30upx;
 			line-height: 1;
-			border: 1px solid  #fa436a;
+			border: 1px solid #fa436a;
 			border-radius: 4upx;
 			position: relative;
 			overflow: hidden;
 			font-size: 22upx;
-			color:  #fa436a;
-	
+			color: #fa436a;
+
 			&:after {
 				content: '';
 				width: 50upx;
@@ -798,85 +843,86 @@ import ownShare from '@/components/own-share/own-share.vue'
 				left: -20upx;
 				top: -12upx;
 				position: absolute;
-				background:  #fa436a;
+				background: #fa436a;
 			}
 		}
-	
-	
-	.icon-xingxing {
-		position: relative;
-		z-index: 1;
-		font-size: 24upx;
-		margin-left: 2upx;
-		margin-right: 10upx;
-		color: #fff;
-		line-height: 1;
+
+
+		.icon-xingxing {
+			position: relative;
+			z-index: 1;
+			font-size: 24upx;
+			margin-left: 2upx;
+			margin-right: 10upx;
+			color: #fff;
+			line-height: 1;
+		}
+
+		.tit {
+			font-size: 28upx;
+			margin-left: 10upx;
+		}
+
+		.icon-bangzhu1 {
+			padding: 10upx;
+			font-size: 30upx;
+			line-height: 1;
+		}
+
+		.share-btn {
+			flex: 1;
+			text-align: right;
+			font-size: 0.8rem;
+			color: #fa436a;
+		}
+
+		.icon-you {
+			font-size: 0.8rem;
+			margin-left: 4upx;
+			color: #fa436a;
+		}
+
 	}
-	.tit {
-		font-size: 28upx;
-		margin-left: 10upx;
-	}
-		
-	.icon-bangzhu1 {
-		padding: 10upx;
-		font-size: 30upx;
-		line-height: 1;
-	}
-		
-	.share-btn {
-		flex: 1;
-		text-align: right;
-		font-size: 0.8rem;
-		color:  #fa436a;
-	}
-		
-	.icon-you {
-		font-size: 0.8rem;
-		margin-left: 4upx;
-		color:  #fa436a;
-	}
-	
-	}
-	
-	
-	
-	
+
+
+
+
 	.c-list {
 		font-size: 0.7rem;
 		color: #606266;
 		background: #fff;
-	
+
 		.c-row {
 			display: flex;
 			align-items: center;
 			padding: 20upx 30upx;
 			position: relative;
 		}
-	
+
 		.tit {
 			width: 140upx;
 		}
-	
+
 		.con {
 			flex: 1;
 			color: #303133;
-	
+
 			.selected-text {
 				margin-right: 10upx;
 			}
 		}
-	
+
 		.bz-list {
 			height: 40upx;
 			font-size: 0.7rem;
 			color: #303133;
-	
+
 			text {
 				display: inline-block;
 				margin-right: 30upx;
 			}
 		}
-	
+
 		.con-list {
 			flex: 1;
 			display: flex;
@@ -884,54 +930,54 @@ import ownShare from '@/components/own-share/own-share.vue'
 			color: #303133;
 			line-height: 40upx;
 		}
-	
+
 		.red {
-			color:  #fa436a;
+			color: #fa436a;
 		}
 	}
-	
+
 	.eva-section {
 		display: flex;
 		flex-direction: column;
 		padding: 20upx 30upx;
 		background: #fff;
 		margin-top: 16upx;
-	
+
 		.e-header {
 			display: flex;
 			align-items: center;
 			height: 70upx;
 			font-size: 0.9rem;
 			color: #909399;
-	
+
 			.tit {
 				font-size: 0.9rem;
 				color: #303133;
 				margin-right: 4upx;
 			}
-	
+
 			.tip {
 				flex: 1;
 				text-align: right;
 			}
-	
+
 			.icon-you {
 				margin-left: 10upx;
 			}
 		}
-	} 
-	
+	}
+
 	.eva-box {
 		display: flex;
 		padding: 20upx 0;
-	
+
 		.portrait {
 			flex-shrink: 0;
 			width: 80upx;
 			height: 80upx;
 			border-radius: 100px;
 		}
-	
+
 		.right {
 			flex: 1;
 			display: flex;
@@ -939,13 +985,13 @@ import ownShare from '@/components/own-share/own-share.vue'
 			font-size: 28upx;
 			color: #606266;
 			padding-left: 26upx;
-	
+
 			.con {
 				font-size: 28upx;
 				color: #303133;
 				padding: 20upx 0;
 			}
-	
+
 			.bot {
 				display: flex;
 				justify-content: space-between;
@@ -953,11 +999,12 @@ import ownShare from '@/components/own-share/own-share.vue'
 				color: #909399;
 			}
 		}
-	} 
+	}
+
 	.detail-desc {
 		background: #fff;
 		margin-top: 16upx;
-	
+
 		.d-header {
 			display: flex;
 			justify-content: center;
@@ -966,14 +1013,14 @@ import ownShare from '@/components/own-share/own-share.vue'
 			font-size: 0.9rem;
 			color: #303133;
 			position: relative;
-	
+
 			text {
 				padding: 0 20upx;
 				background: #fff;
 				position: relative;
 				z-index: 1;
 			}
-	
+
 			&:after {
 				position: absolute;
 				left: 50%;
@@ -982,19 +1029,20 @@ import ownShare from '@/components/own-share/own-share.vue'
 				width: 300upx;
 				height: 0;
 				content: '';
-				
+
 			}
 		}
 
-		
-		
+
+
 	}
+
 	.attr-content {
 		padding: 10upx 30upx;
-	
+
 		.a-t {
 			display: flex;
-	
+
 			image {
 				width: 170upx;
 				height: 170upx;
@@ -1003,7 +1051,7 @@ import ownShare from '@/components/own-share/own-share.vue'
 				border-radius: 8upx;
 				;
 			}
-	
+
 			.right {
 				display: flex;
 				flex-direction: column;
@@ -1011,19 +1059,19 @@ import ownShare from '@/components/own-share/own-share.vue'
 				font-size: 0.8rem;
 				color: #606266;
 				line-height: 42upx;
-	
+
 				.price {
-					font-size:  32upx;
+					font-size: 32upx;
 					color: #fa436a;
 					margin-bottom: 10upx;
 				}
-	
+
 				.selected-text {
 					margin-right: 10upx;
 				}
 			}
 		}
-	
+
 		.attr-list {
 			display: flex;
 			flex-direction: column;
@@ -1032,12 +1080,12 @@ import ownShare from '@/components/own-share/own-share.vue'
 			padding-top: 30upx;
 			padding-left: 10upx;
 		}
-	
+
 		.item-list {
 			padding: 20upx 0 0;
 			display: flex;
 			flex-wrap: wrap;
-	
+
 			text {
 				display: flex;
 				align-items: center;
@@ -1052,14 +1100,14 @@ import ownShare from '@/components/own-share/own-share.vue'
 				font-size: 28upx;
 				color: #303133;
 			}
-	
+
 			.selected {
 				background: #fbebee;
-				color:  #fa436a;
+				color: #fa436a;
 			}
 		}
 	}
-	
+
 	/*  弹出层 */
 	.popup {
 		position: fixed;
@@ -1068,33 +1116,33 @@ import ownShare from '@/components/own-share/own-share.vue'
 		right: 0;
 		bottom: 0;
 		z-index: 99;
-	
+
 		&.show {
 			display: block;
-	
+
 			.mask {
 				animation: showPopup 0.2s linear both;
 			}
-	
+
 			.layer {
 				animation: showLayer 0.2s linear both;
 			}
 		}
-	
+
 		&.hide {
 			.mask {
 				animation: hidePopup 0.2s linear both;
 			}
-	
+
 			.layer {
 				animation: hideLayer 0.2s linear both;
 			}
 		}
-	
+
 		&.none {
 			display: none;
 		}
-	
+
 		.mask {
 			position: fixed;
 			top: 0;
@@ -1103,7 +1151,7 @@ import ownShare from '@/components/own-share/own-share.vue'
 			z-index: 1;
 			background-color: rgba(0, 0, 0, 0.4);
 		}
-	
+
 		.layer {
 			position: fixed;
 			z-index: 99;
@@ -1112,59 +1160,59 @@ import ownShare from '@/components/own-share/own-share.vue'
 			min-height: 40vh;
 			border-radius: 10upx 10upx 0 0;
 			background-color: #fff;
-	
+
 			.btn {
 				height: 66upx;
 				line-height: 66upx;
 				border-radius: 100upx;
-				background:  #fa436a;
+				background: #fa436a;
 				font-size: 0.9rem;
 				color: #fff;
 				margin: 30upx auto 20upx;
 			}
 		}
-	
+
 		@keyframes showPopup {
 			0% {
 				opacity: 0;
 			}
-	
+
 			100% {
 				opacity: 1;
 			}
 		}
-	
+
 		@keyframes hidePopup {
 			0% {
 				opacity: 1;
 			}
-	
+
 			100% {
 				opacity: 0;
 			}
 		}
-	
+
 		@keyframes showLayer {
 			0% {
 				transform: translateY(120%);
 			}
-	
+
 			100% {
 				transform: translateY(0%);
 			}
 		}
-	
+
 		@keyframes hideLayer {
 			0% {
 				transform: translateY(0);
 			}
-	
+
 			100% {
 				transform: translateY(120%);
 			}
 		}
 	}
-	
+
 	/* 底部操作菜单 */
 	.page-bottom {
 		position: fixed;
@@ -1179,7 +1227,7 @@ import ownShare from '@/components/own-share/own-share.vue'
 		background: rgba(255, 255, 255, .9);
 		box-shadow: 0 0 20upx 0 rgba(0, 0, 0, .5);
 		border-radius: 16upx;
-	
+
 		.p-b-btn {
 			display: flex;
 			flex-direction: column;
@@ -1189,28 +1237,28 @@ import ownShare from '@/components/own-share/own-share.vue'
 			color: #606266;
 			width: 96upx;
 			height: 80upx;
-	
+
 			.yticon {
 				font-size: 40upx;
 				line-height: 48upx;
 				color: #909399;
 			}
-	
+
 			&.active,
 			&.active .yticon {
-				color:  #fa436a;
+				color: #fa436a;
 			}
-	
+
 			.icon-fenxiang2 {
 				font-size: 42upx;
 				transform: translateY(-2upx);
 			}
-	
+
 			.icon-shoucang {
 				font-size: 46upx;
 			}
 		}
-	
+
 		.action-btn-group {
 			display: flex;
 			height: 76upx;
@@ -1221,18 +1269,18 @@ import ownShare from '@/components/own-share/own-share.vue'
 			background: linear-gradient(to right, #ffac30, #fa436a, #F56C6C);
 			margin-left: 20upx;
 			position: relative;
-	
+
 			&:after {
 				content: '';
 				position: absolute;
 				top: 50%;
 				right: 50%;
-				transform: translateY(-50%); 
+				transform: translateY(-50%);
 				height: 28upx;
 				width: 0;
 				border-right: 1px solid rgba(255, 255, 255, .5);
 			}
-	
+
 			.action-btn {
 				display: flex;
 				align-items: center;
@@ -1246,9 +1294,8 @@ import ownShare from '@/components/own-share/own-share.vue'
 			}
 		}
 	}
-	
-	.node-item{
+
+	.node-item {
 		width: 100%;
 	}
-	
 </style>
